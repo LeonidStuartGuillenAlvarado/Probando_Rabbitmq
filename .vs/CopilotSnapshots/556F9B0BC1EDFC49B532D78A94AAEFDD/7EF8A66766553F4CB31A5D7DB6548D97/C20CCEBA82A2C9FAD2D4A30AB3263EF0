@@ -1,0 +1,48 @@
+﻿using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text;
+
+var factory = new RabbitMQ.Client.ConnectionFactory()
+{
+    HostName = "localhost"
+};
+
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+
+channel.QueueDeclare(
+    queue: "cola-demo",
+    durable: true,
+    exclusive: false,
+    autoDelete: false,
+    arguments: null
+);
+
+// Prefetch = 1
+channel.BasicQos(0, 1, false);
+
+var consumer = new RabbitMQ.Client.Events.EventingBasicConsumer(channel);
+
+consumer.Received += (sender, ea) =>
+{
+    var body = ea.Body.ToArray();
+    var message = Encoding.UTF8.GetString(body);
+
+    Console.WriteLine($"Mensaje recibido: {message}");
+
+    // Simula procesamiento
+    System.Threading.Thread.Sleep(3000);
+
+    // ACK manual
+    channel.BasicAck(ea.DeliveryTag, false);
+    Console.WriteLine("Mensaje confirmado (ACK)");
+};
+
+channel.BasicConsume(
+    queue: "cola-demo",
+    autoAck: false,
+    consumer: consumer
+);
+
+Console.WriteLine("Consumidor esperando mensajes...");
+Console.ReadLine();

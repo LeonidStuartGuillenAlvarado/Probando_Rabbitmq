@@ -1,0 +1,33 @@
+﻿using RabbitMQ.Client;
+using System.Text;
+
+var factory = new ConnectionFactory() { HostName = "localhost" };
+
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+
+//declaramos la cola
+channel.QueueDeclare(
+    queue: "hello",
+    durable: true,
+    exclusive: false,
+    autoDelete: false,
+    arguments: null
+);
+
+var message = "HGola Mundo desde RabbitMQ!!!";
+var body = Encoding.UTF8.GetBytes(message);
+
+//mensaje persistente
+var properties = channel.CreateBasicProperties();
+properties.Persistent = true;
+
+channel.BasicPublish(
+    exchange: "",
+    routingKey: "cola-demo",
+    basicProperties: properties,
+    body: body
+);
+
+Console.WriteLine("Mensaje enviado");
+Console.ReadLine();

@@ -1,0 +1,17 @@
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\obj\Debug\net9.0\Producer.csproj.AssemblyReference.cache
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\obj\Debug\net9.0\Producer.GeneratedMSBuildEditorConfig.editorconfig
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\obj\Debug\net9.0\Producer.AssemblyInfoInputs.cache
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\obj\Debug\net9.0\Producer.AssemblyInfo.cs
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\obj\Debug\net9.0\Producer.csproj.CoreCompileInputs.cache
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\bin\Debug\net9.0\Producer.exe
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\bin\Debug\net9.0\Producer.deps.json
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\bin\Debug\net9.0\Producer.runtimeconfig.json
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\bin\Debug\net9.0\Producer.dll
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\bin\Debug\net9.0\Producer.pdb
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\bin\Debug\net9.0\RabbitMQ.Client.dll
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\obj\Debug\net9.0\Producer.csproj.Up2Date
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\obj\Debug\net9.0\Producer.dll
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\obj\Debug\net9.0\refint\Producer.dll
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\obj\Debug\net9.0\Producer.pdb
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\obj\Debug\net9.0\Producer.genruntimeconfig.cache
+D:\personal\academia\Rabbitoso\ProbemosRabbit\Producer\obj\Debug\net9.0\ref\Producer.dll
