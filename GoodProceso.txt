@@ -1,0 +1,60 @@
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text;
+
+var factory = new ConnectionFactory { HostName = "localhost" };
+
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+
+// ===== Infraestructura =====
+channel.ExchangeDeclare("pedidos.exchange", ExchangeType.Topic, true);
+channel.ExchangeDeclare("pedidos.retry", ExchangeType.Direct, true);
+channel.ExchangeDeclare("pedidos.dlx", ExchangeType.Direct, true);
+
+channel.QueueDeclare(
+    queue: "cola-pagos",
+    durable: true,
+    exclusive: false,
+    autoDelete: false,
+    arguments: new Dictionary<string, object>
+    {
+        { "x-dead-letter-exchange", "pedidos.retry" },
+        { "x-dead-letter-routing-key", "retry" }
+    }
+);
+
+channel.QueueBind(
+    queue: "cola-pagos",
+    exchange: "pedidos.exchange",
+    routingKey: "pedido.creado"
+);
+
+// ===== QoS =====
+channel.BasicQos(0, 1, false);
+
+// ===== Consumer =====
+var consumer = new EventingBasicConsumer(channel);
+
+consumer.Received += (sender, ea) =>
+{
+    var message = Encoding.UTF8.GetString(ea.Body.ToArray());
+
+    Console.WriteLine($"[OK] Procesando pago: {message}");
+
+    // Simular trabajo exitoso
+    Thread.Sleep(1500);
+
+    // ✅ CONFIRMAMOS EL MENSAJE
+    channel.BasicAck(ea.DeliveryTag, false);
+    Console.WriteLine("[OK] Pago procesado correctamente");
+};
+
+channel.BasicConsume(
+    queue: "cola-pagos",
+    autoAck: false,
+    consumer: consumer
+);
+
+Console.WriteLine("Consumer OK activo...");
+Console.ReadLine();
